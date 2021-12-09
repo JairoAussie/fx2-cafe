@@ -1,4 +1,7 @@
+require_relative "./seed.rb"
+
 #create a Menu object and seed it
+menu = seed
 
 def print_options
     puts "1. Show menu"
@@ -13,26 +16,36 @@ def print_options
 end
 
 
-def add_product
-
+def add_product(m)
+    #menu -> m, name -> n, price -> p, just to demonstrate that I can handle variable scope
     print "What's the name of the new product? "
     n = gets.chomp
     print "What's the price of #{n}? "
     p = gets.chomp.to_f
     
     #add menu item to the menu
-    
+    m.add_item(n, p)
+
+    #show the menu to see the added menu item
+    m.show_menu
 end
 
-def delete_product
+def delete_product(menu)
     #show the list of products, just names
     
     #ask about the product we want to delete
     print "What the product you want to delete? "
     name = gets.chomp
     #make sure it is in the menu
+    index = menu.find_item(name)
+    if index != -1
+        #delete it
+        menu.delete_item(index)
+        menu.show_menu
+    else
+        puts "Item not found"
+    end
 
-    #delete it
     
 end
 def edit_product
@@ -59,13 +72,13 @@ while option != "6"
 
     case option
         when "1"
-            print_menu
+            menu.show_menu
         when "2"
-            add_product
+            add_product(menu)
         when "3"
             edit_product
         when "4"
-            delete_product
+            delete_product(menu)
         when "5"
             take_order
         when "6"
