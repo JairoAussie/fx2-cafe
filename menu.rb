@@ -36,4 +36,15 @@ class Menu
         #receiving an object ->  @menu_items.delete(item)
         @menu_items.delete_at(index)
     end
+    #edit item, it receives the index, and edits that item 
+    def edit_item(index, price)
+        @menu_items[index].price = price
+    end
+
+    #returns the price of a given menu_item
+    def get_price(name)
+        #find the object in the array by name
+        menu_item = @menu_items.find{|item| item.name == name}
+        return menu_item.price
+    end
 end

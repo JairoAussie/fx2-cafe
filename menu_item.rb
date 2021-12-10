@@ -1,5 +1,6 @@
 class MenuItem
-    attr_reader :name, :price
+    attr_reader :name
+    attr_accessor :price
     #initialize with name and price attributes
     def initialize(name, price)
         @name = name

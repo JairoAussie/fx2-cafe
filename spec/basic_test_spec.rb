@@ -1,5 +1,6 @@
 require_relative '../menu_item.rb'
 require_relative '../menu.rb'
+require_relative '../order.rb'
 
 describe "Test MenuItem object" do
     it "should store the attributes of the menuItem correctly" do
@@ -63,7 +64,7 @@ describe "Test find item" do
     end
 end
 
-describe "Test find item" do
+describe "Test Delete item" do
     it "deletes an item from the menu" do
         menu_items = [MenuItem.new("Latte", 4.0), MenuItem.new("Tea", 3.0)]
         menu = Menu.new(menu_items)
@@ -72,6 +73,53 @@ describe "Test find item" do
         expect(menu.menu_items[0].name).to eq("Tea")
     end
 end
+
+describe "Test edit item" do
+    it "edit the price of an item" do
+        menu_items = [MenuItem.new("Latte", 4.0), MenuItem.new("Tea", 3.0)]
+        menu = Menu.new(menu_items)
+        menu.edit_item(1, 4.5)
+        expect(menu.menu_items[1].price).to eq 4.5
+        expect(menu.menu_items[1].name).to eq "Tea"
+        expect(menu.menu_items[0].price).to eq 4.0
+    end
+    
+end
+
+describe "Test add order line" do
+    it "adds name -> quantity item correctly to the hash" do
+        order = Order.new #empty hash
+        name = "Espresso"
+        quantity = 3
+        order.add_order_line(name, quantity)
+        expect(order.order_items[name]).to eq quantity
+    end
+
+    it "increments the quantity in the same product" do
+        order = Order.new #empty hash
+        name = "Espresso"
+        quantity = 3
+        order.add_order_line(name, quantity)
+        order.add_order_line(name, 1)
+
+        expect(order.order_items[name]).to eq 4
+    end
+    
+end
+
+describe "Test order total value" do
+    it "order total calculates the total bill correctly" do
+        menu_items = [MenuItem.new("Latte", 4.0), MenuItem.new("Tea", 3.0)]
+        menu = Menu.new(menu_items)
+        order = Order.new #empty hash
+        order.add_order_line("Tea", 3)
+        order.add_order_line("Latte", 1)
+        expect(order.total_order(menu)).to eq 13.0
+    end
+    
+end
+
+
 
 
 
