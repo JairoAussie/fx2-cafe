@@ -1,4 +1,3 @@
-echo $1
 #remove Gemfile.lock
 rm Gemfile.lock
 
@@ -9,4 +8,4 @@ bundle install
 #clear the screen
 clear
 #run program
-ruby cafe.rb CoderCafe
+ruby cafe.rb $1
