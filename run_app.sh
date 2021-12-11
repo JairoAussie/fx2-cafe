@@ -5,6 +5,7 @@ rm Gemfile.lock
 gem install bundle
 #install the gems
 bundle install
+
 #clear the screen
 clear
 #run program
